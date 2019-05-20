@@ -1,5 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { createStream } from '../../actions';
 
 class StreamCreate extends React.Component {
   renderErrorMessage({ error, touched }) {
@@ -25,9 +27,9 @@ class StreamCreate extends React.Component {
     );
   };
 
-  mySubmit(formValues) {
-    console.log(formValues);
-  }
+  mySubmit = formValues => {
+    this.props.createStream(formValues);
+  };
 
   render() {
     return (
@@ -54,11 +56,15 @@ const validate = formValues => {
   return errors;
 };
 
-export default reduxForm({
+const formWrapped = reduxForm({
   form: 'streamCreate',
   validate: validate,
 })(StreamCreate);
 
+export default connect(
+  null,
+  { createStream },
+)(formWrapped);
 /*
 NOTES:
 Field element does not create the field element on its own. Instead it connects this component to the Redux Store. It needs a component prop that returns the actual field, and connect the onChange and value of the input field
