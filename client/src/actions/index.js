@@ -9,8 +9,10 @@ export const signOut = () => {
 };
 
 export const createStream = formValues => {
-  return async dispatch => {
-    const response = await streamsApi.post('/streams', formValues);
+  return async (dispatch, getState) => {
+    const { userID } = getState().signInStatus;
+
+    const response = await streamsApi.post('/streams', { ...formValues, userID });
     dispatch({ type: 'CREATE_STREAM', payload: response.data });
   };
 };

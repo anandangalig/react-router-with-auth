@@ -6,5 +6,5 @@ import streamReducer from './streamReducer';
 export default combineReducers({
   signInStatus: AuthReducer,
   form: formReducer,
-  streamReducer: streamReducer,
+  streams: streamReducer,
 });
