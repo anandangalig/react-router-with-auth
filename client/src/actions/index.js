@@ -1,4 +1,5 @@
 import streamsApi from '../api/streams';
+import history from '../history';
 
 export const signIn = userId => {
   return { type: 'SIGN_IN', payload: userId };
@@ -11,9 +12,10 @@ export const signOut = () => {
 export const createStream = formValues => {
   return async (dispatch, getState) => {
     const { userID } = getState().signInStatus;
-
     const response = await streamsApi.post('/streams', { ...formValues, userID });
     dispatch({ type: 'CREATE_STREAM', payload: response.data });
+    // programmatically navigate user to streams list page after manually creating own history + Router
+    history.push('/');
   };
 };
 
