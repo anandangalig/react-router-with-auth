@@ -3,12 +3,16 @@ import { connect } from 'react-redux';
 import { fetchStreams } from '../../actions';
 import { Link } from 'react-router-dom';
 
-const renderAdminButtons = (currentUserID, userID) => {
+const renderAdminButtons = (currentUserID, { userID, id }) => {
   if (currentUserID && userID === currentUserID) {
     return (
       <div className="right floated content">
-        <button className="ui button primary">Edit</button>
-        <button className="ui button negative">Delete</button>
+        <Link to={`/stream/edit/${id}`} className="ui button primary">
+          Edit
+        </Link>
+        <Link to={`/stream/delete/${id}`} className="ui button negative">
+          Delete
+        </Link>
       </div>
     );
   }
@@ -26,10 +30,10 @@ const renderCreateNewButton = currentUserID => {
 
 const renderStreams = (streams, currentUserID) => {
   return Object.keys(streams).map(key => {
-    let { title, description, id, userID } = streams[key];
+    let { title, description, id } = streams[key];
     return (
       <div className="item" key={id}>
-        {renderAdminButtons(currentUserID, userID)}
+        {renderAdminButtons(currentUserID, streams[key])}
         <i className="large middle aligned icon camera" />
         <div className="content">
           <strong>{title}</strong>
