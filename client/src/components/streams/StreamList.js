@@ -4,7 +4,7 @@ import { fetchStreams } from '../../actions';
 import { Link } from 'react-router-dom';
 
 const renderAdminButtons = (currentUserID, userID) => {
-  if (userID === currentUserID) {
+  if (currentUserID && userID === currentUserID) {
     return (
       <div className="right floated content">
         <button className="ui button primary">Edit</button>
