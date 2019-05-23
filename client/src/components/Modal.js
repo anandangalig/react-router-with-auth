@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import history from '../history';
 
 const Modal = props => {
-  console.log(props);
-
   return ReactDOM.createPortal(
     <div
       onClick={() => {
@@ -18,12 +16,9 @@ const Modal = props => {
         }}
         className="ui standard modal visible active"
       >
-        <div className="header">Delete Stream</div>
-        <div className="content">Are u sure?</div>
-        <div className="actions">
-          <button className="ui primary button">Delete</button>
-          <button className="ui button">Cancel</button>
-        </div>
+        <div className="header">{props.title}</div>
+        <div className="content">{props.content}</div>
+        <div className="actions">{props.actions}</div>
       </div>
     </div>,
     document.querySelector('#modal'),
