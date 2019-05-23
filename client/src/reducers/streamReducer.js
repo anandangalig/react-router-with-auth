@@ -10,7 +10,7 @@ export default (state = {}, action) => {
       return { ...state, [action.payload.id]: action.payload };
     case 'DELETE_STREAM':
       return _.omit(state, action.payload);
-    // THIS SHOULD WORK TOO?
+    // alternative way to delete a property from an object and spread it over a new one:
     // delete state[action.payload];
     // return { ...state };
     case 'FETCH_STREAMS':
