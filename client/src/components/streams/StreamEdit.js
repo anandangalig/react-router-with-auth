@@ -1,21 +1,33 @@
-import React, { useEffect } from 'react';
+import _ from 'lodash';
+import React from 'react';
 import { connect } from 'react-redux';
-import { fetchStream } from '../../actions';
+import { fetchStream, editStream } from '../../actions';
+import StreamForm from './StreamForm';
 
-const StreamEdit = props => {
-  useEffect(() => {
-    props.fetchStream(props.match.params.id);
-  }, []);
+class StreamEdit extends React.Component {
+  onSubmit = formValues => {
+    this.props.editStream(this.props.match.params.id, formValues);
+  };
 
-  if (!props.stream) {
-    return <div>Loading...</div>;
+  componentDidMount() {
+    this.props.fetchStream(this.props.match.params.id);
   }
-  return (
-    <div>
-      {props.stream.title} {props.stream.description}
-    </div>
-  );
-};
+
+  render() {
+    if (!this.props.stream) {
+      return <div>Loading...</div>;
+    }
+    return (
+      <div>
+        <h3>Edit a Stream</h3>
+        <StreamForm
+          onSubmit={this.onSubmit}
+          initialValues={_.pick(this.props.stream, ['title', 'description'])}
+        />
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = (state, ownProps) => {
   // passes the flat object by puling it out from the overall object:
@@ -24,5 +36,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
   mapStateToProps,
-  { fetchStream },
+  { fetchStream, editStream },
 )(StreamEdit);

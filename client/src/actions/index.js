@@ -33,10 +33,11 @@ export const fetchStream = id => {
   };
 };
 
-export const editStream = (formValues, id) => {
+export const editStream = (id, formValues) => {
   return async dispatch => {
-    const response = await streamsApi.put(`/streams/${id}`, formValues);
+    const response = await streamsApi.patch(`/streams/${id}`, formValues);
     dispatch({ type: 'EDIT_STREAM', payload: response.data });
+    history.push('/');
   };
 };
 
