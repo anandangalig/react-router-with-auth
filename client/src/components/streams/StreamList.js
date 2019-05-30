@@ -36,7 +36,9 @@ const renderStreams = (streams, currentUserID) => {
         {renderAdminButtons(currentUserID, streams[key])}
         <i className="large middle aligned icon camera" />
         <div className="content">
-          <strong>{title}</strong>
+          <Link to={`/stream/${id}`} className="header">
+            {title}
+          </Link>
           <div className="description">{description}</div>
         </div>
       </div>
